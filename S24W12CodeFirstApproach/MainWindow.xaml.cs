@@ -31,5 +31,29 @@ namespace S24W12CodeFirstApproach
             cmbStandard.DisplayMemberPath = "Name";
             cmbStandard.SelectedValuePath = "StandardId";
         }
+
+        private void LoadStudents()
+        {
+            grdStudents.ItemsSource = db.Students.ToList();
+            grdStudents.Columns[3].Visibility = Visibility.Hidden;
+        }
+
+        private void btnLoadData_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStudents();
+        }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+            Student std = new Student();
+            std.Name = txtName.Text;
+            std.StandardId = (int)cmbStandard.SelectedValue;
+
+            db.Students.Add(std);
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("New student added");
+        }
     }
 }
