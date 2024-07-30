@@ -16,9 +16,20 @@ namespace S24W12CodeFirstApproach
     /// </summary>
     public partial class MainWindow : Window
     {
+        // define the object of context class
+        SchoolContext db = new SchoolContext();
+
         public MainWindow()
         {
             InitializeComponent();
+            PopulateStandardComboBox();
+        }
+
+        private void PopulateStandardComboBox()
+        {
+            cmbStandard.ItemsSource = db.Standards.ToList();
+            cmbStandard.DisplayMemberPath = "Name";
+            cmbStandard.SelectedValuePath = "StandardId";
         }
     }
 }
